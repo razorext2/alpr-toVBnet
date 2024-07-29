@@ -29,5 +29,6 @@
         btnUpload.BackColor = Color.SteelBlue
         Button1.BackColor = Color.SteelBlue
         Button2.BackColor = Color.DarkMagenta
+        cameraInput.Show()
     End Sub
 End Class
