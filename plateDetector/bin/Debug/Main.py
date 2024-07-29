@@ -69,14 +69,14 @@ def main():
             print('Mengirim:', new_license)
             time.sleep(1.0)  # Delay for sending data
 
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
+            # if cv2.waitKey(1) & 0xFF == ord('q'):
+            #     break
     except Exception as e:
         print(f"Error: {e}")
     finally:
         conn.close()
         sock.close()
-        cv2.destroyAllWindows()
+        # cv2.destroyAllWindows()
 
 def draw_red_rectangle_around_plate(img, lic_plate):
     """Draw a red rectangle around the detected license plate."""
