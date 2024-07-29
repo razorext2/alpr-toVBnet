@@ -29,3 +29,4 @@ C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\AF
 C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\AForge.Video.dll
 C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\AForge.xml
 C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\AForge.Video.xml
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.mainMenu.resources
