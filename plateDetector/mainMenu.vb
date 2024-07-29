@@ -5,6 +5,7 @@
         Button1.BackColor = Color.SteelBlue
         Button2.BackColor = Color.SteelBlue
         rtspStream.Show()
+        ' Me.Hide()
     End Sub
 
     Private Sub btnUpload_Click(sender As Object, e As EventArgs) Handles btnUpload.Click
