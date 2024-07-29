@@ -1,6 +1,7 @@
 import os
 import cv2
 import imutils
+import numpy as np
 
 import Calibration as cal
 import DetectChars
@@ -13,12 +14,12 @@ SCALAR_WHITE = (255, 255, 255)
 SCALAR_YELLOW = (0, 255, 255)
 SCALAR_GREEN = (0, 255, 0)
 SCALAR_RED = (0, 0, 255)
-N_VERIFY = 5  # number of verifications   
+N_VERIFY = 5  # number of verifications
 
 def main():
     """Main function to process the image and detect license plates."""
     image_path = 'D:/102.jpg'
-    
+
     img_original_scene = cv2.imread(image_path)
     if img_original_scene is None:
         print("Error: Please check the image path or argument!")
@@ -37,13 +38,16 @@ def main():
     img_original_scene, new_license = search_license_plate(img_original_scene, False)
     print(f"License plate read from image: {new_license}\n")
 
-    
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
 def draw_red_rectangle_around_plate(img, lic_plate):
     """Draw a red rectangle around the detected license plate."""
     rect_points = cv2.boxPoints(lic_plate.rrLocationOfPlateInScene)
+    
+    # Convert points to integer
+    rect_points = np.int0(rect_points)
+    
     for i in range(4):
         pt1, pt2 = tuple(rect_points[i]), tuple(rect_points[(i + 1) % 4])
         cv2.line(img, pt1, pt2, SCALAR_RED, 2)

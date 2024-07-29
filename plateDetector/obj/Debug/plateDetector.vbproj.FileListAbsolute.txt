@@ -25,3 +25,7 @@ C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\Vl
 C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\Vlc.DotNet.Core.Interops.dll
 C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\Vlc.DotNet.Forms.dll
 C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.rtspStream.resources
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\AForge.dll
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\AForge.Video.dll
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\AForge.xml
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\AForge.Video.xml

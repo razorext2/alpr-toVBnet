@@ -3,6 +3,7 @@ import cv2
 import imutils
 import socket
 import time
+import numpy as np
 
 import Calibration as cal
 import DetectChars
@@ -65,12 +66,9 @@ def main():
             img_original_scene, new_license = search_license_plate(img_original_scene, False)
 
             conn.sendall(bytes(new_license, 'utf-8'))
-
             print('Mengirim:', new_license)
             time.sleep(1.0)  # Delay for sending data
 
-            # if cv2.waitKey(1) & 0xFF == ord('q'):
-            #     break
     except Exception as e:
         print(f"Error: {e}")
     finally:
@@ -81,6 +79,10 @@ def main():
 def draw_red_rectangle_around_plate(img, lic_plate):
     """Draw a red rectangle around the detected license plate."""
     rect_points = cv2.boxPoints(lic_plate.rrLocationOfPlateInScene)
+    
+    # Convert points to integer
+    rect_points = np.int0(rect_points)
+    
     for i in range(4):
         pt1, pt2 = tuple(rect_points[i]), tuple(rect_points[(i + 1) % 4])
         cv2.line(img, pt1, pt2, SCALAR_RED, 2)
