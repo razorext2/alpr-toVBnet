@@ -31,11 +31,10 @@ C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\AF
 C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\AForge.Video.xml
 C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.mainMenu.resources
 C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.cameraInput.resources
-C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\AForge.Controls.dll
-C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\AForge.Imaging.dll
-C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\AForge.Math.dll
 C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\AForge.Video.DirectShow.dll
-C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\AForge.Controls.xml
-C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\AForge.Imaging.xml
-C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\AForge.Math.xml
 C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\AForge.Video.DirectShow.xml
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.TrustInfo.xml
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\plateDetector.exe.manifest
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\plateDetector.application
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.exe.manifest
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.application
