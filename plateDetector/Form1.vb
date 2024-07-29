@@ -1,6 +1,8 @@
 ﻿Imports System.Net.Sockets
 Imports System.Text
 Imports System.Threading
+Imports System.IO
+Imports System.Windows.Forms
 
 Public Class Form1
 
@@ -20,6 +22,23 @@ Public Class Form1
             Label1.Text = "Failed to Connected to Python"
             Button1.BackColor = Color.Red
             Label1.ForeColor = Color.Red
+        End Try
+    End Sub
+
+    Private Sub WriteDirectoryToFile(filePath As String)
+        Try
+            ' get the directory from the file path
+            Dim directoryPath As String = Path.GetDirectoryName(filePath)
+
+            ' speciy the path for the text file where directory will be saved
+            Dim outputPath As String = "directory.txt"
+
+            ' write the directory path to the text file
+            File.WriteAllText(outputPath, directoryPath)
+
+            MessageBox.Show("Directory saved to file successfully")
+        Catch ex As Exception
+            MessageBox.Show("error writing to file: " & ex.Message)
         End Try
     End Sub
 
@@ -43,5 +62,21 @@ Public Class Form1
         End While
         ' Menutup Koneksi
         conn.Close()
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Dim openFileDialog As New OpenFileDialog()
+        openFileDialog.Title = "Select a File"
+        openFileDialog.Filter = "All Files (*.*)|*.*"
+
+        ' show the dialog and check if a file was selected
+        If openFileDialog.ShowDialog() = DialogResult.OK Then
+
+            ' get the selected file's path
+            Dim selectedFilePath As String = openFileDialog.FileName
+
+            ' call the method to write the directory path to the file
+            WriteDirectoryToFile(selectedFilePath)
+        End If
     End Sub
 End Class
