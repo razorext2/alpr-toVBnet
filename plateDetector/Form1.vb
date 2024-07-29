@@ -6,42 +6,36 @@ Imports System.Windows.Forms
 
 Public Class Form1
 
-    Private conn As New TcpClient()
+    Private conn As TcpClient
     Private thread As Thread
     Private isConnected As Boolean = False
+    Private process As Process ' Variable to store the Python process
+    Private receivedData As String = String.Empty ' Variable to store received data
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         If Not isConnected Then
             ' Connect to the Python script
             Try
-                Shell("cmd.exe /k python main.py")
-                conn.Connect("localhost", 9000)
-                thread = New Thread(AddressOf ReceiveData)
-                thread.Start()
-                Button1.BackColor = Color.LightGreen
-                Label1.Text = "Connected to Python"
-                Label1.ForeColor = Color.DarkGreen
+                process = New Process()
+                process.StartInfo.FileName = "python"
+                process.StartInfo.Arguments = "main.py"
+                process.StartInfo.UseShellExecute = False
+                process.StartInfo.RedirectStandardOutput = True
+                process.StartInfo.CreateNoWindow = True
+                process.Start()
+
+                conn = New TcpClient("localhost", 9000)
                 isConnected = True
+
+                Label1.Text = "Terhubung ke python"
+                Label1.ForeColor = Color.Green
+
+                ' Start receiving data
+                ReceiveData()
             Catch ex As Exception
-                Label1.Text = "Failed to Connect to Python"
-                Button1.BackColor = Color.Red
+                MessageBox.Show("Failed to Connect to Python: " & ex.Message)
+                Label1.Text = "Gagal terhubung ke python"
                 Label1.ForeColor = Color.Red
-            End Try
-        Else
-            ' Disconnect from the Python script
-            Try
-                If conn.Connected Then
-                    conn.Close()
-                End If
-                If thread IsNot Nothing AndAlso thread.IsAlive Then
-                    thread.Abort()
-                End If
-                Button1.BackColor = Color.LightGray
-                Label1.Text = "Disconnected from Python"
-                Label1.ForeColor = Color.Gray
-                isConnected = False
-            Catch ex As Exception
-                MessageBox.Show("Error disconnecting: " & ex.Message)
             End Try
         End If
     End Sub
@@ -67,25 +61,29 @@ Public Class Form1
     End Sub
 
     Private Sub ReceiveData()
-        While True
-            Try
-                ' Receive data from server
-                Dim bytes(conn.ReceiveBufferSize) As Byte
-                Dim stream As NetworkStream = conn.GetStream()
-                stream.Read(bytes, 0, conn.ReceiveBufferSize)
-                Dim receivedData As String = Encoding.ASCII.GetString(bytes).TrimEnd(ControlChars.NullChar)
+        Try
+            Dim stream As NetworkStream = conn.GetStream()
+            Dim buffer(1024) As Byte
 
-                ' Update GUI with the received data
-                Invoke(Sub()
-                           txtScreen1.Text = receivedData.Split(",")(0)
-                       End Sub)
-            Catch ex As Exception
-                ' Handle exception
-                Exit While
-            End Try
-        End While
-        ' Close connection
-        conn.Close()
+            ' Read the data from the stream
+            Dim bytesRead As Integer = stream.Read(buffer, 0, buffer.Length)
+            If bytesRead > 0 Then
+                receivedData = Encoding.ASCII.GetString(buffer, 0, bytesRead).TrimEnd(ControlChars.NullChar)
+                txtScreen1.Text = receivedData
+
+                ' Close the connection and process after receiving data
+                conn.Close()
+                isConnected = False
+
+                If process IsNot Nothing AndAlso Not process.HasExited Then
+                    process.Kill()
+                End If
+
+                MessageBox.Show("Data received: " & receivedData)
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error receiving data: " & ex.Message)
+        End Try
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
@@ -100,6 +98,8 @@ Public Class Form1
 
             ' Call the method to write the directory and file name to the file
             WritePathToFile(selectedFilePath)
+
+            ' Send the image path to the Python script
         End If
     End Sub
 
