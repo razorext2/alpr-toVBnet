@@ -6,6 +6,8 @@ import Calibration as cal
 import DetectChars
 import DetectPlates
 import Preprocess as pp
+import socket
+import time
 
 # Module level variables for image
 SCALAR_BLACK = (0, 0, 0)
@@ -14,6 +16,17 @@ SCALAR_YELLOW = (0, 255, 255)
 SCALAR_GREEN = (0, 255, 0)
 SCALAR_RED = (0, 0, 255)
 N_VERIFY = 5  # number of verifications
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+server_address =('localhost', 8186)
+sock.bind(server_address)
+
+sock.listen(1)
+
+print('Menunggu koneksi masuk...')
+conn, client_address = sock.accept()
+print('koneksi dari', client_address)       
 
 def main():
     """Main function to process the image and detect license plates."""
@@ -36,6 +49,8 @@ def main():
 
     img_original_scene, new_license = search_license_plate(img_original_scene, False)
     print(f"License plate read from image: {new_license}\n")
+    
+    conn.sendall(bytes(new_license, 'utf-8'))
     
     cv2.waitKey(0)
     cv2.destroyAllWindows()

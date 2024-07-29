@@ -9,6 +9,18 @@ import numpy as np
 import Main
 import PossibleChar
 import Preprocess
+import socket
+
+# sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# server_address =('localhost', 8186)
+# sock.bind(server_address)
+
+# sock.listen(1)
+
+# print('Menunggu koneksi masuk...')
+# conn, client_address = sock.accept()
+# print('koneksi dari', client_address)       
 
 # module level variables ##########################################################################
 
