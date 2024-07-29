@@ -21,3 +21,7 @@ C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\pl
 C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.Resources.resources
 C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.vbproj.GenerateResource.Cache
 C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.Form2.resources
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\Vlc.DotNet.Core.dll
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\Vlc.DotNet.Core.Interops.dll
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\Vlc.DotNet.Forms.dll
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.rtspStream.resources

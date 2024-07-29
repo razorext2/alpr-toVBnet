@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.plateDetector.Form2
+            Me.MainForm = Global.plateDetector.rtspStream
         End Sub
     End Class
 End Namespace
