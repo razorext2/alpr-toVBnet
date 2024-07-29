@@ -1,0 +1,22 @@
+c:\users\abdi\documents\visual studio 2015\Projects\plateDetector\plateDetector\bin\Debug\plateDetector.exe.config
+c:\users\abdi\documents\visual studio 2015\Projects\plateDetector\plateDetector\bin\Debug\plateDetector.exe
+c:\users\abdi\documents\visual studio 2015\Projects\plateDetector\plateDetector\bin\Debug\plateDetector.pdb
+c:\users\abdi\documents\visual studio 2015\Projects\plateDetector\plateDetector\bin\Debug\plateDetector.xml
+c:\users\abdi\documents\visual studio 2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.vbprojResolveAssemblyReference.cache
+c:\users\abdi\documents\visual studio 2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.Form1.resources
+c:\users\abdi\documents\visual studio 2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.Resources.resources
+c:\users\abdi\documents\visual studio 2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.vbproj.GenerateResource.Cache
+c:\users\abdi\documents\visual studio 2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.exe
+c:\users\abdi\documents\visual studio 2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.xml
+c:\users\abdi\documents\visual studio 2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.pdb
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\plateDetector.exe.config
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.exe
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.xml
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.pdb
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\plateDetector.exe
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\plateDetector.pdb
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\plateDetector.xml
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.vbprojResolveAssemblyReference.cache
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.Form1.resources
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.Resources.resources
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.vbproj.GenerateResource.Cache
