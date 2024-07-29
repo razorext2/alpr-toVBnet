@@ -66,7 +66,6 @@ Public Class rtspStream
         End Try
     End Sub
 
-
     Private Sub btnDetect_Click(sender As Object, e As EventArgs) Handles btnDetect.Click
         If Not isConnected Then
             ' Connect to the Python script
