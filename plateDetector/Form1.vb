@@ -25,22 +25,23 @@ Public Class Form1
         End Try
     End Sub
 
-    Private Sub WriteDirectoryToFile(filePath As String)
+    Private Sub WritePathToFile(filePath As String)
         Try
-            ' get the directory from the file path
-            Dim directoryPath As String = Path.GetDirectoryName(filePath)
+            ' Specify the path for the text file where the full file path will be saved
+            Dim outputPath As String = "fileList.txt"
 
-            ' speciy the path for the text file where directory will be saved
-            Dim outputPath As String = "directory.txt"
+            ' Write the full file path to the text file
+            File.WriteAllText(outputPath, filePath)
 
-            ' write the directory path to the text file
-            File.WriteAllText(outputPath, directoryPath)
+            ' Update the text box with the full file path
+            txtDirectory.Text = filePath
 
-            MessageBox.Show("Directory saved to file successfully")
+            MessageBox.Show("File path saved to file successfully")
         Catch ex As Exception
-            MessageBox.Show("error writing to file: " & ex.Message)
+            MessageBox.Show("Error writing to file: " & ex.Message)
         End Try
     End Sub
+
 
     Private Sub ReceiveData()
         While True
@@ -66,17 +67,18 @@ Public Class Form1
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Dim openFileDialog As New OpenFileDialog()
-        openFileDialog.Title = "Select a File"
-        openFileDialog.Filter = "All Files (*.*)|*.*"
+        openFileDialog.Title = "Select an Image File"
+        openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;"
 
-        ' show the dialog and check if a file was selected
+        ' Show the dialog and check if a file was selected
         If openFileDialog.ShowDialog() = DialogResult.OK Then
 
-            ' get the selected file's path
+            ' Get the selected file's path
             Dim selectedFilePath As String = openFileDialog.FileName
 
-            ' call the method to write the directory path to the file
-            WriteDirectoryToFile(selectedFilePath)
+            ' Call the method to write the directory and file name to the file
+            WritePathToFile(selectedFilePath)
         End If
     End Sub
+
 End Class
