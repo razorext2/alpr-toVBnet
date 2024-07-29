@@ -29,6 +29,7 @@ Partial Class rtspStream
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnDetect = New System.Windows.Forms.Button()
         Me.txtScreen1 = New System.Windows.Forms.TextBox()
+        Me.btnSave = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -88,19 +89,27 @@ Partial Class rtspStream
         '
         'txtScreen1
         '
-        Me.txtScreen1.Enabled = False
         Me.txtScreen1.Location = New System.Drawing.Point(419, 338)
         Me.txtScreen1.Multiline = True
         Me.txtScreen1.Name = "txtScreen1"
-        Me.txtScreen1.ReadOnly = True
-        Me.txtScreen1.Size = New System.Drawing.Size(240, 26)
+        Me.txtScreen1.Size = New System.Drawing.Size(170, 26)
         Me.txtScreen1.TabIndex = 6
+        '
+        'btnSave
+        '
+        Me.btnSave.Location = New System.Drawing.Point(595, 338)
+        Me.btnSave.Name = "btnSave"
+        Me.btnSave.Size = New System.Drawing.Size(64, 26)
+        Me.btnSave.TabIndex = 7
+        Me.btnSave.Text = "Save"
+        Me.btnSave.UseVisualStyleBackColor = True
         '
         'rtspStream
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(671, 379)
+        Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.txtScreen1)
         Me.Controls.Add(Me.btnDetect)
         Me.Controls.Add(Me.Label1)
@@ -124,4 +133,5 @@ Partial Class rtspStream
     Friend WithEvents Label1 As Label
     Friend WithEvents btnDetect As Button
     Friend WithEvents txtScreen1 As TextBox
+    Friend WithEvents btnSave As Button
 End Class
