@@ -8,33 +8,57 @@ Public Class Form1
 
     Private conn As New TcpClient()
     Private thread As Thread
+    Private isConnected As Boolean = False
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Shell("cmd.exe /k python main.py")
-        Try
-            conn.Connect("localhost", 9000)
-            thread = New Thread(AddressOf ReceiveData)
-            thread.Start()
-            Button1.BackColor = Color.LightGreen
-            Label1.Text = "Connected to Python"
-            Label1.ForeColor = Color.DarkGreen
-        Catch ex As Exception
-            Label1.Text = "Failed to Connected to Python"
-            Button1.BackColor = Color.Red
-            Label1.ForeColor = Color.Red
-        End Try
+        If Not isConnected Then
+            ' Connect to the Python script
+            Try
+                Shell("cmd.exe /k python main.py")
+                conn.Connect("localhost", 9000)
+                thread = New Thread(AddressOf ReceiveData)
+                thread.Start()
+                Button1.BackColor = Color.LightGreen
+                Label1.Text = "Connected to Python"
+                Label1.ForeColor = Color.DarkGreen
+                isConnected = True
+            Catch ex As Exception
+                Label1.Text = "Failed to Connect to Python"
+                Button1.BackColor = Color.Red
+                Label1.ForeColor = Color.Red
+            End Try
+        Else
+            ' Disconnect from the Python script
+            Try
+                If conn.Connected Then
+                    conn.Close()
+                End If
+                If thread IsNot Nothing AndAlso thread.IsAlive Then
+                    thread.Abort()
+                End If
+                Button1.BackColor = Color.LightGray
+                Label1.Text = "Disconnected from Python"
+                Label1.ForeColor = Color.Gray
+                isConnected = False
+            Catch ex As Exception
+                MessageBox.Show("Error disconnecting: " & ex.Message)
+            End Try
+        End If
     End Sub
 
     Private Sub WritePathToFile(filePath As String)
         Try
-            ' Specify the path for the text file where the full file path will be saved
+            ' Replace backslashes with forward slashes
+            Dim formattedPath As String = filePath.Replace("\", "/")
+
+            ' Specify the path for the text file where the formatted file path will be saved
             Dim outputPath As String = "fileList.txt"
 
-            ' Write the full file path to the text file
-            File.WriteAllText(outputPath, filePath)
+            ' Write the formatted file path to the text file
+            File.WriteAllText(outputPath, formattedPath)
 
-            ' Update the text box with the full file path
-            txtDirectory.Text = filePath
+            ' Update the text box with the formatted file path
+            txtDirectory.Text = formattedPath
 
             MessageBox.Show("File path saved to file successfully")
         Catch ex As Exception
@@ -42,26 +66,25 @@ Public Class Form1
         End Try
     End Sub
 
-
     Private Sub ReceiveData()
         While True
             Try
-                ' Menerima data dari server
+                ' Receive data from server
                 Dim bytes(conn.ReceiveBufferSize) As Byte
                 Dim stream As NetworkStream = conn.GetStream()
                 stream.Read(bytes, 0, conn.ReceiveBufferSize)
                 Dim receivedData As String = Encoding.ASCII.GetString(bytes).TrimEnd(ControlChars.NullChar)
 
-                ' Memperbarui GUI dengan data yang diterima
+                ' Update GUI with the received data
                 Invoke(Sub()
                            txtScreen1.Text = receivedData.Split(",")(0)
                        End Sub)
             Catch ex As Exception
-                ' Mengatasi exception
+                ' Handle exception
                 Exit While
             End Try
         End While
-        ' Menutup Koneksi
+        ' Close connection
         conn.Close()
     End Sub
 
@@ -72,7 +95,6 @@ Public Class Form1
 
         ' Show the dialog and check if a file was selected
         If openFileDialog.ShowDialog() = DialogResult.OK Then
-
             ' Get the selected file's path
             Dim selectedFilePath As String = openFileDialog.FileName
 

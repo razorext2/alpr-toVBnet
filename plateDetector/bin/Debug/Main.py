@@ -20,6 +20,16 @@ SCALAR_RED = (0, 0, 255)
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_address = ('localhost', 9000)
 
+def read_image_path(file_path):
+    """Read the image path from a text file and ensure the path uses forward slashes."""
+    try:
+        with open(file_path, 'r') as file:
+            path = file.read().strip()
+            return path.replace('\\', '/')
+    except Exception as e:
+        print(f"Error reading file path: {e}")
+        return None
+
 def main():
     """Main function to process the image and detect license plates."""
     # Bind the socket and listen for incoming connections
@@ -31,24 +41,28 @@ def main():
 
     try:
         while True:
-            image_path = 'D:/tes2.jpg'
+            image_path = read_image_path('fileList.txt')
+            if image_path is None or not os.path.isfile(image_path):
+                print("Error: Image path is invalid or file does not exist!")
+                time.sleep(1.0)
+                continue
+
             img_original_scene = cv2.imread(image_path)
             if img_original_scene is None:
                 print("Error: Please check the image path or argument!")
+                time.sleep(1.0)
                 continue
 
             if not DetectChars.loadKNNDataAndTrainKNN():
                 print("Error: KNN training failed!")
+                time.sleep(1.0)
                 continue
 
             img_original_scene = imutils.resize(img_original_scene, width=720)
-            # cv2.imshow("Original", img_original_scene)
 
             img_grayscale, img_thresh = pp.preprocess(img_original_scene)
-            # cv2.imshow("Threshold", img_thresh)
 
             img_original_scene, new_license = search_license_plate(img_original_scene, False)
-            # print(f"License plate read from image: {new_license}\n")
 
             conn.sendall(bytes(new_license, 'utf-8'))
 
@@ -104,19 +118,12 @@ def search_license_plate(img, loop):
     possible_plates = DetectPlates.detectPlatesInScene(img)
     possible_plates = DetectChars.detectCharsInPlates(possible_plates)
 
-    # if not loop:
-    #     cv2.imshow("Original Scene", img)
-
     if not possible_plates:
         if not loop:
             print("No license plates were detected\n")
     else:
         possible_plates.sort(key=lambda plate: len(plate.strChars), reverse=True)
         lic_plate = possible_plates[0]
-
-        # if not loop:
-        #     cv2.imshow("Plate", lic_plate.imgPlate)
-        #     cv2.imshow("Threshold", lic_plate.imgThresh)
 
         if not lic_plate.strChars:
             if not loop:
@@ -126,11 +133,6 @@ def search_license_plate(img, loop):
         draw_red_rectangle_around_plate(img, lic_plate)
         write_license_plate_chars_on_image(img, lic_plate)
         licenses = lic_plate.strChars
-
-        # if not loop:
-            # print(f"License plate read from image: {lic_plate.strChars}\n")
-            # cv2.imshow("Original Scene", img)
-            # cv2.imwrite("imgOriginalScene.png", img)
 
     return img, licenses
 

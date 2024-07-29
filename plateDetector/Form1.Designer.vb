@@ -48,7 +48,7 @@ Partial Class Form1
         Me.txtScreen1.Location = New System.Drawing.Point(31, 150)
         Me.txtScreen1.Name = "txtScreen1"
         Me.txtScreen1.Size = New System.Drawing.Size(267, 31)
-        Me.txtScreen1.TabIndex = 2
+        Me.txtScreen1.TabIndex = 1
         '
         'ContextMenuStrip1
         '
@@ -101,11 +101,17 @@ Partial Class Form1
         '
         'txtDirectory
         '
-        Me.txtDirectory.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtDirectory.Cursor = System.Windows.Forms.Cursors.Default
+        Me.txtDirectory.Enabled = False
+        Me.txtDirectory.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtDirectory.Location = New System.Drawing.Point(31, 56)
+        Me.txtDirectory.Multiline = True
         Me.txtDirectory.Name = "txtDirectory"
+        Me.txtDirectory.ReadOnly = True
         Me.txtDirectory.Size = New System.Drawing.Size(177, 31)
-        Me.txtDirectory.TabIndex = 1
+        Me.txtDirectory.TabIndex = 100
+        Me.txtDirectory.Text = "Please select the file"
+        Me.txtDirectory.WordWrap = False
         '
         'Form1
         '
