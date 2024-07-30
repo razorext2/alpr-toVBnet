@@ -35,7 +35,7 @@ Public Class rtspStream
 
     Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
         Label1.Visible = False
-        ' Dim rtspUrl As String = "rtsp://admin:admin123@192.168.11.32:554/sub_stream"
+        ' Dim rtspUrl As String = "rtsp://admin:admin123@192.168.11.34:554/sub_stream"
         Dim rtspUrl As String = txtUrl.Text
         If rtspUrl = "" Then
             MessageBox.Show("Masukkan RTSP URL terlebih dahulu!")

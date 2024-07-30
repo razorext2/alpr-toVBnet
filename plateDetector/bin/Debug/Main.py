@@ -60,7 +60,10 @@ def main():
         img_original_scene, new_license = search_license_plate(img_original_scene, False)
 
         conn.sendall(bytes(new_license, 'utf-8'))
-        print('Mengirim:', new_license)
+        if new_license == 0:
+            print('Mengirim: No Character Detected')
+        else: 
+            print('Mengirim:', new_license)
         
     except Exception as e:
         print(f"Error: {e}")

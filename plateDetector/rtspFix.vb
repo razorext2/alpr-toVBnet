@@ -33,6 +33,8 @@ Public Class rtspFix
 
         btnSave.Visible = False
         btnCapture.Text = "Start" ' Initial state
+        PictureBox2.BackColor = Color.Black
+
     End Sub
 
     Private Sub btnCapture_Click(sender As Object, e As EventArgs) Handles btnCapture.Click
@@ -44,6 +46,8 @@ Public Class rtspFix
     End Sub
 
     Private Async Sub StartAndDetect()
+        Label1.Text = "Stream Terkoneksi..."
+        Label1.ForeColor = Color.Green
         Dim rtspUrl As String = txtUrl.Text
         If rtspUrl = "" Then
             MessageBox.Show("Masukkan RTSP URL terlebih dahulu!")
@@ -61,6 +65,7 @@ Public Class rtspFix
             ' Update state
             currentState = "started"
             btnCapture.Text = "Stop"
+            btnCapture.BackColor = Color.MediumSpringGreen
         End If
     End Sub
 
@@ -78,7 +83,8 @@ Public Class rtspFix
         Try
             ' Capture the current frame and save it
             vlcControl.TakeSnapshot(videoPath)
-            MessageBox.Show("Capture saved to " & videoPath)
+            ' MessageBox.Show("Capture saved to " & videoPath)
+            MessageBox.Show("Sedang mendeteksi...")
 
             ' Load the captured image into PictureBox2
             PictureBox2.Image = Image.FromFile(videoPath)
@@ -138,7 +144,7 @@ Public Class rtspFix
                     process.Kill()
                 End If
 
-                MessageBox.Show("Data received: " & receivedData)
+                MessageBox.Show("Plate terdeteksi: " & receivedData)
             End If
         Catch ex As Exception
             MessageBox.Show("Error receiving data: " & ex.Message)
