@@ -1,1 +1,1 @@
-C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\captureImg\capture_20240730_140426.jpg
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\captureImg\capture_20240730_142223.jpg

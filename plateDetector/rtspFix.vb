@@ -35,13 +35,15 @@ Public Class rtspFix
         btnCapture.Text = "Start" ' Initial state
         PictureBox2.BackColor = Color.Black
 
+        ' Set the initial state for btnStop
+        btnStop.Enabled = False
     End Sub
 
     Private Sub btnCapture_Click(sender As Object, e As EventArgs) Handles btnCapture.Click
         If currentState = "stopped" Then
             StartAndDetect()
-        Else
-            StopStream()
+        ElseIf currentState = "started" Then
+            CaptureAndDetect()
         End If
     End Sub
 
@@ -57,14 +59,15 @@ Public Class rtspFix
             vlcControl.Play()
 
             ' Wait for the stream to stabilize
-            Await Task.Delay(3000) ' Wait for 3 seconds
+            Await Task.Delay(2000) ' Wait for 2 seconds
 
             ' Capture image and detect plate
             CaptureAndDetect()
 
             ' Update state
             currentState = "started"
-            btnCapture.Text = "Stop"
+            btnCapture.Text = "Detect"
+            btnStop.Enabled = True
             btnCapture.BackColor = Color.MediumSpringGreen
         End If
     End Sub
@@ -83,8 +86,6 @@ Public Class rtspFix
         Try
             ' Capture the current frame and save it
             vlcControl.TakeSnapshot(videoPath)
-            ' MessageBox.Show("Capture saved to " & videoPath)
-            ' MessageBox.Show("Sedang mendeteksi...")
 
             ' Load the captured image into PictureBox2
             PictureBox2.Image = Image.FromFile(videoPath)
@@ -147,8 +148,13 @@ Public Class rtspFix
                 ' MessageBox.Show("Plate terdeteksi: " & receivedData)
             End If
         Catch ex As Exception
-            MessageBox.Show("Error receiving data: " & ex.Message)
+            ' MessageBox.Show("Error receiving data: " & ex.Message)
+            MessageBox.Show("Error receiving data: No plate detected")
         End Try
+    End Sub
+
+    Private Sub btnStop_Click(sender As Object, e As EventArgs) Handles btnStop.Click
+        StopStream()
     End Sub
 
     Private Sub StopStream()
@@ -157,6 +163,7 @@ Public Class rtspFix
         Label1.Visible = True
         currentState = "stopped"
         btnCapture.Text = "Start"
+        btnStop.Enabled = False
         PictureBox2.Image = Nothing
     End Sub
 

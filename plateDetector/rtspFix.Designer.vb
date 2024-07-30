@@ -33,6 +33,7 @@ Partial Class rtspFix
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupBox = New System.Windows.Forms.GroupBox()
+        Me.btnStop = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -53,13 +54,13 @@ Partial Class rtspFix
         Me.txtUrl.Location = New System.Drawing.Point(79, 12)
         Me.txtUrl.Multiline = True
         Me.txtUrl.Name = "txtUrl"
-        Me.txtUrl.Size = New System.Drawing.Size(281, 26)
+        Me.txtUrl.Size = New System.Drawing.Size(450, 26)
         Me.txtUrl.TabIndex = 18
         '
         'btnSave
         '
         Me.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnSave.Location = New System.Drawing.Point(956, 12)
+        Me.btnSave.Location = New System.Drawing.Point(1147, 12)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(80, 26)
         Me.btnSave.TabIndex = 17
@@ -68,7 +69,7 @@ Partial Class rtspFix
         '
         'txtScreen1
         '
-        Me.txtScreen1.Location = New System.Drawing.Point(644, 12)
+        Me.txtScreen1.Location = New System.Drawing.Point(835, 12)
         Me.txtScreen1.Multiline = True
         Me.txtScreen1.Name = "txtScreen1"
         Me.txtScreen1.Size = New System.Drawing.Size(307, 26)
@@ -96,7 +97,7 @@ Partial Class rtspFix
         'btnCapture
         '
         Me.btnCapture.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnCapture.Location = New System.Drawing.Point(366, 12)
+        Me.btnCapture.Location = New System.Drawing.Point(535, 12)
         Me.btnCapture.Name = "btnCapture"
         Me.btnCapture.Size = New System.Drawing.Size(84, 26)
         Me.btnCapture.TabIndex = 12
@@ -115,7 +116,7 @@ Partial Class rtspFix
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(599, 19)
+        Me.Label3.Location = New System.Drawing.Point(790, 19)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(42, 13)
         Me.Label3.TabIndex = 21
@@ -144,11 +145,22 @@ Partial Class rtspFix
         Me.GroupBox.TabStop = False
         Me.GroupBox.Text = "Output"
         '
+        'btnStop
+        '
+        Me.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnStop.Location = New System.Drawing.Point(625, 12)
+        Me.btnStop.Name = "btnStop"
+        Me.btnStop.Size = New System.Drawing.Size(84, 26)
+        Me.btnStop.TabIndex = 25
+        Me.btnStop.Text = "Stop"
+        Me.btnStop.UseVisualStyleBackColor = True
+        '
         'rtspFix
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1242, 437)
+        Me.Controls.Add(Me.btnStop)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
@@ -180,4 +192,5 @@ Partial Class rtspFix
     Friend WithEvents Label3 As Label
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents GroupBox As GroupBox
+    Friend WithEvents btnStop As Button
 End Class
