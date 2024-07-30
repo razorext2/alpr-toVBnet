@@ -38,3 +38,4 @@ C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\pl
 C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\plateDetector.application
 C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.exe.manifest
 C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.application
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\obj\Debug\plateDetector.rtspFix.resources

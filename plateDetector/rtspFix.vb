@@ -5,13 +5,14 @@ Imports System.Text
 Imports System.Threading
 Imports System.Diagnostics
 
-Public Class rtspStream
+Public Class rtspFix
 
     Private conn As TcpClient
     Private isConnected As Boolean = False
     Private vlcControl As VlcControl
     Private receivedData As String = String.Empty ' Variable to store received data
     Private process As Process ' Variable to store the Python process
+    Private currentState As String = "stopped" ' To track the current state of the application
 
     Private Sub rtspStream_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Initialize VlcControl
@@ -31,30 +32,43 @@ Public Class rtspStream
         vlcControl.EndInit()
 
         btnSave.Visible = False
+        btnCapture.Text = "Start" ' Initial state
     End Sub
 
-    Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
-        Label1.Visible = False
-        ' Dim rtspUrl As String = "rtsp://admin:admin123@192.168.11.32:554/sub_stream"
+    Private Sub btnCapture_Click(sender As Object, e As EventArgs) Handles btnCapture.Click
+        If currentState = "stopped" Then
+            StartAndDetect()
+        Else
+            StopStream()
+        End If
+    End Sub
+
+    Private Async Sub StartAndDetect()
         Dim rtspUrl As String = txtUrl.Text
         If rtspUrl = "" Then
             MessageBox.Show("Masukkan RTSP URL terlebih dahulu!")
         Else
+            ' Start streaming
             vlcControl.SetMedia(New Uri(rtspUrl))
             vlcControl.Play()
+
+            ' Wait for the stream to stabilize
+            Await Task.Delay(3000) ' Wait for 3 seconds
+
+            ' Capture image and detect plate
+            CaptureAndDetect()
+
+            ' Update state
+            currentState = "started"
+            btnCapture.Text = "Stop"
         End If
-
     End Sub
 
-    Private Sub btnStop_Click(sender As Object, e As EventArgs) Handles btnStop.Click
-        Label1.Text = "Stream sedang berhenti"
-        Label1.Visible = True
-        vlcControl.Stop()
-    End Sub
-
-    Private Sub btnCapture_Click(sender As Object, e As EventArgs) Handles btnCapture.Click
+    Private Sub CaptureAndDetect()
+        ' Capture image
         Dim captureDir As String = "C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\captureImg"
-        Dim videoPath As String = Path.Combine(captureDir, "capture.jpg")
+        Dim timestamp As String = DateTime.Now.ToString("yyyyMMdd_HHmmss")
+        Dim videoPath As String = Path.Combine(captureDir, $"capture_{timestamp}.jpg")
 
         ' Ensure the directory exists
         If Not Directory.Exists(captureDir) Then
@@ -66,15 +80,22 @@ Public Class rtspStream
             vlcControl.TakeSnapshot(videoPath)
             MessageBox.Show("Capture saved to " & videoPath)
 
-            ' Write the capture path to fileList.txt
+            ' Load the captured image into PictureBox2
+            PictureBox2.Image = Image.FromFile(videoPath)
+            PictureBox2.SizeMode = PictureBoxSizeMode.StretchImage ' Adjust image size mode as needed
+
+            ' Write the capture path to fileList.txt (overwrite)
             Dim fileListPath As String = "C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\fileList.txt"
-            File.WriteAllText(fileListPath, videoPath)
+            File.WriteAllText(fileListPath, videoPath & Environment.NewLine)
+
+            ' Detect plate
+            DetectPlate()
         Catch ex As Exception
             MessageBox.Show("Error capturing frame: " & ex.Message)
         End Try
     End Sub
 
-    Private Sub btnDetect_Click(sender As Object, e As EventArgs) Handles btnDetect.Click
+    Private Sub DetectPlate()
         If Not isConnected Then
             ' Connect to the Python script
             Try
@@ -122,6 +143,15 @@ Public Class rtspStream
         Catch ex As Exception
             MessageBox.Show("Error receiving data: " & ex.Message)
         End Try
+    End Sub
+
+    Private Sub StopStream()
+        vlcControl.Stop()
+        Label1.Text = "Stream sedang berhenti"
+        Label1.Visible = True
+        currentState = "stopped"
+        btnCapture.Text = "Start"
+        PictureBox2.Image = Nothing
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
