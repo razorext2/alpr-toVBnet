@@ -21,3 +21,8 @@ alpr/lapi.weights
 
 ##ignore folder storage
 plateDetector/bin/Debug/venv
+
+# Ignore image files in captureImg
+/captureImg/*.jpg
+/captureImg/*.png
+/captureImg/*.bmp
