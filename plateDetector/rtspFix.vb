@@ -84,7 +84,7 @@ Public Class rtspFix
             ' Capture the current frame and save it
             vlcControl.TakeSnapshot(videoPath)
             ' MessageBox.Show("Capture saved to " & videoPath)
-            MessageBox.Show("Sedang mendeteksi...")
+            ' MessageBox.Show("Sedang mendeteksi...")
 
             ' Load the captured image into PictureBox2
             PictureBox2.Image = Image.FromFile(videoPath)
@@ -144,7 +144,7 @@ Public Class rtspFix
                     process.Kill()
                 End If
 
-                MessageBox.Show("Plate terdeteksi: " & receivedData)
+                ' MessageBox.Show("Plate terdeteksi: " & receivedData)
             End If
         Catch ex As Exception
             MessageBox.Show("Error receiving data: " & ex.Message)
