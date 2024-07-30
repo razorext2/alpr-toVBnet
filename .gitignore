@@ -23,6 +23,6 @@ alpr/lapi.weights
 plateDetector/bin/Debug/venv
 
 # Ignore image files in captureImg
-/captureImg/*.jpg
-/captureImg/*.png
-/captureImg/*.bmp
+plateDetector/bin/Debug/captureImg/*.jpg
+plateDetector/bin/Debug/captureImg/*.png
+plateDetector/bin/Debug/captureImg/*.bmp
