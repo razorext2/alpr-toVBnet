@@ -14,7 +14,7 @@ Public Class rtspFix
     Private process As Process ' Variable to store the Python process
     Private currentState As String = "stopped" ' To track the current state of the application
 
-    Private Sub rtspStream_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub rtspFix_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Initialize VlcControl
         vlcControl = New VlcControl()
         vlcControl.Dock = DockStyle.Fill
@@ -48,18 +48,19 @@ Public Class rtspFix
     End Sub
 
     Private Async Sub StartAndDetect()
-        Label1.Text = "Stream Terkoneksi..."
-        Label1.ForeColor = Color.Green
         Dim rtspUrl As String = txtUrl.Text
         If rtspUrl = "" Then
             MessageBox.Show("Masukkan RTSP URL terlebih dahulu!")
         Else
+            Label1.Text = "Stream Terkoneksi..."
+            Label1.ForeColor = Color.Green
+
             ' Start streaming
             vlcControl.SetMedia(New Uri(rtspUrl))
             vlcControl.Play()
 
             ' Wait for the stream to stabilize
-            Await Task.Delay(2000) ' Wait for 2 seconds
+            Await Task.Delay(3000) ' Wait for 2 seconds
 
             ' Capture image and detect plate
             CaptureAndDetect()
@@ -73,6 +74,12 @@ Public Class rtspFix
     End Sub
 
     Private Sub CaptureAndDetect()
+        ' Check if the stream is alive
+        If Not vlcControl.IsPlaying Then
+            MessageBox.Show("Stream is not alive. Cannot capture or detect.")
+            Return
+        End If
+
         ' Capture image
         Dim captureDir As String = "C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\captureImg"
         Dim timestamp As String = DateTime.Now.ToString("yyyyMMdd_HHmmss")
