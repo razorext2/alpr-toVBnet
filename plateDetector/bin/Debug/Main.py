@@ -74,7 +74,7 @@ def main():
 def draw_red_rectangle_around_plate(img, lic_plate):
     """Draw a red rectangle around the detected license plate."""
     rect_points = cv2.boxPoints(lic_plate.rrLocationOfPlateInScene)
-    rect_points = np.int0(rect_points)
+    rect_points = np.int32(rect_points)
     for i in range(4):
         pt1, pt2 = tuple(rect_points[i]), tuple(rect_points[(i + 1) % 4])
         cv2.line(img, pt1, pt2, SCALAR_RED, 2)

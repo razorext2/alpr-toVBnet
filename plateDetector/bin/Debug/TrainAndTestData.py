@@ -41,14 +41,15 @@ def main():
     ap.add_argument("-d", "--image_testing",
                     help="path for the images that you're going to test")
     args = vars(ap.parse_args())
-    if args.get("image", True):
-        imgTestingNumbers = cv2.imread(args["image_testing"])  # read in training numbers image
+    if args.get("image_testing"):
+        imgTestingNumbers = cv2.imread(args["image_testing"])  # read in testing numbers image
         if imgTestingNumbers is None:
             print("error: image not read from file \n\n")  # print error message to std out
             os.system("pause")  # pause so user can see error message
             return
     else:
         print("Please add -d or --image_testing argument")
+        return
 
     allContoursWithData = []  # declare empty lists,
     validContoursWithData = []  # we will fill these shortly
@@ -59,7 +60,6 @@ def main():
         print("error, unable to open classifications.txt, exiting program\n")
         os.system("pause")
         return
-    # end try
 
     try:
         npaFlattenedImages = np.loadtxt("flattened_images.txt", np.float32)  # read in training images
@@ -67,7 +67,6 @@ def main():
         print("error, unable to open flattened_images.txt, exiting program\n")
         os.system("pause")
         return
-    # end try
 
     npaClassifications = npaClassifications.reshape(
         (npaClassifications.size, 1))  # reshape numpy array to 1d, necessary to pass to call to train
@@ -89,12 +88,19 @@ def main():
                                       11,  # size of a pixel neighborhood used to calculate threshold value
                                       2)  # constant subtracted from the mean or weighted mean
 
-    imgThreshCopy = imgThresh.copy()  # make a copy of the thresh image, this in necessary b/c findContours modifies the image
+    imgThreshCopy = imgThresh.copy()  # make a copy of the thresh image, this is necessary b/c findContours modifies the image
 
-    imgContours, npaContours, npaHierarchy = cv2.findContours(imgThreshCopy,
-                                                              # input image, make sure to use a copy since the function will modify this image in the course of finding contours
-                                                              cv2.RETR_EXTERNAL,  # retrieve the outermost contours only
-                                                              cv2.CHAIN_APPROX_SIMPLE)  # compress horizontal, vertical, and diagonal segments and leave only their end points
+    # Check OpenCV version and unpack contours accordingly
+    version = cv2.__version__.split('.')[0]
+    if version == '4':
+        npaContours, npaHierarchy = cv2.findContours(imgThreshCopy,
+                                                     cv2.RETR_EXTERNAL,  # retrieve the outermost contours only
+                                                     cv2.CHAIN_APPROX_SIMPLE)  # compress horizontal, vertical, and diagonal segments and leave only their end points
+        imgContours = imgThreshCopy  # imgContours is not returned by OpenCV 4.x
+    else:
+        imgContours, npaContours, npaHierarchy = cv2.findContours(imgThreshCopy,
+                                                                  cv2.RETR_EXTERNAL,  # retrieve the outermost contours only
+                                                                  cv2.CHAIN_APPROX_SIMPLE)  # compress horizontal, vertical, and diagonal segments and leave only their end points
 
     for npaContour in npaContours:  # for each contour
         contourWithData = ContourWithData()  # instantiate a contour with data object
@@ -103,13 +109,10 @@ def main():
         contourWithData.calculateRectTopLeftPointAndWidthAndHeight()  # get bounding rect info
         contourWithData.fltArea = cv2.contourArea(contourWithData.npaContour)  # calculate the contour area
         allContoursWithData.append(contourWithData)  # add contour with data object to list of all contours with data
-    # end for
 
     for contourWithData in allContoursWithData:  # for all contours
         if contourWithData.checkIfContourIsValid():  # check if valid
             validContoursWithData.append(contourWithData)  # if so, append to valid contour list
-        # end if
-    # end for
 
     validContoursWithData.sort(key=operator.attrgetter("intRectX"))  # sort contours from left to right
 
@@ -142,7 +145,6 @@ def main():
         strCurrentChar = str(chr(int(npaResults[0][0])))  # get character from results
 
         strFinalString = strFinalString + strCurrentChar  # append current char to full string
-    # end for
 
     print("\n" + strFinalString + "\n")  # show the full string
 
@@ -152,7 +154,6 @@ def main():
     cv2.destroyAllWindows()  # remove windows from memory
 
     return
-
 
 ###################################################################################################
 if __name__ == "__main__":

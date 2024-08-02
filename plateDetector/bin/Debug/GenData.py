@@ -19,15 +19,15 @@ def main():
     ap.add_argument("-d", "--image_train",
                     help="path for the images that you're going to train")
     args = vars(ap.parse_args())
-    if args.get("image", True):
+    if args.get("image_train"):
         imgTrainingNumbers = cv2.imread(args["image_train"])  # read in training numbers image
         if imgTrainingNumbers is None:
-            print
-            "error: image not read from file \n\n"  # print error message to std out
+            print("error: image not read from file \n\n")  # print error message to std out
             os.system("pause")  # pause so user can see error message
             return
     else:
         print("Please add -d or --image_train argument")
+        return
 
     imgGray = cv2.cvtColor(imgTrainingNumbers, cv2.COLOR_BGR2GRAY)  # get grayscale image
     imgBlurred = cv2.GaussianBlur(imgGray, (5, 5), 0)  # blur
@@ -44,12 +44,19 @@ def main():
 
     cv2.imshow("imgThresh", imgThresh)  # show threshold image for reference
 
-    imgThreshCopy = imgThresh.copy()  # make a copy of the thresh image, this in necessary b/c findContours modifies the image
+    imgThreshCopy = imgThresh.copy()  # make a copy of the thresh image, this is necessary b/c findContours modifies the image
 
-    imgContours, npaContours, npaHierarchy = cv2.findContours(imgThreshCopy,
-                                                              # input image, make sure to use a copy since the function will modify this image in the course of finding contours
-                                                              cv2.RETR_EXTERNAL,  # retrieve the outermost contours only
-                                                              cv2.CHAIN_APPROX_SIMPLE)  # compress horizontal, vertical, and diagonal segments and leave only their end points
+    # Check OpenCV version and unpack contours accordingly
+    version = cv2.__version__.split('.')[0]
+    if version == '4':
+        npaContours, npaHierarchy = cv2.findContours(imgThreshCopy,
+                                                     cv2.RETR_EXTERNAL,  # retrieve the outermost contours only
+                                                     cv2.CHAIN_APPROX_SIMPLE)  # compress horizontal, vertical, and diagonal segments and leave only their end points
+        imgContours = imgThreshCopy  # imgContours is not returned by OpenCV 4.x
+    else:
+        imgContours, npaContours, npaHierarchy = cv2.findContours(imgThreshCopy,
+                                                                  cv2.RETR_EXTERNAL,  # retrieve the outermost contours only
+                                                                  cv2.CHAIN_APPROX_SIMPLE)  # compress horizontal, vertical, and diagonal segments and leave only their end points
 
     # declare empty numpy array, we will use this to write to file later
     # zero rows, enough cols to hold all image data
@@ -105,8 +112,7 @@ def main():
     npaClassifications = fltClassifications.reshape(
         (fltClassifications.size, 1))  # flatten numpy array of floats to 1d so we can write to file later
 
-    print
-    "\n\ntraining complete !!\n"
+    print("\n\ntraining complete !!\n")
 
     np.savetxt("classifications.txt", npaClassifications)  # write flattened images to file
     np.savetxt("flattened_images.txt", npaFlattenedImages)
