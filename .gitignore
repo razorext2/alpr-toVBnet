@@ -26,3 +26,6 @@ plateDetector/bin/Debug/venv
 plateDetector/bin/Debug/captureImg/*.jpg
 plateDetector/bin/Debug/captureImg/*.png
 plateDetector/bin/Debug/captureImg/*.bmp
+plateDetector/bin/Debug/train_image/*.jpg
+plateDetector/bin/Debug/train_image/*.png
+plateDetector/bin/Debug/train_image/*.bmp
