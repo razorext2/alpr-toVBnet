@@ -1,1 +1,2 @@
-D:/Img/p.png
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\captureImg\capture_20240821_144332.jpg
+C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\captureImg\capture_20240821_144602.jpg

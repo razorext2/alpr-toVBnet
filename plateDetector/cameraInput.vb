@@ -88,6 +88,10 @@ Public Class cameraInput
                 Dim currentFrame As Bitmap = DirectCast(PictureBox1.Image, Bitmap)
                 currentFrame.Save(videoPath, Imaging.ImageFormat.Jpeg)
                 MessageBox.Show("Capture saved to " & videoPath)
+
+                ' Write the capture path to fileList.txt
+                Dim fileListPath As String = "C:\Users\Abdi\Documents\VS2015\Projects\plateDetector\plateDetector\bin\Debug\fileList.txt"
+                File.WriteAllText(fileListPath, videoPath)
             Else
                 MessageBox.Show("No image to capture.")
             End If

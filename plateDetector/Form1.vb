@@ -18,7 +18,15 @@ Public Class Form1
             Try
                 process = New Process()
                 process.StartInfo.FileName = "python"
-                process.StartInfo.Arguments = "main.py"
+                If ComboBox1.Text = "Hitam" Then
+                    process.StartInfo.Arguments = "main.py"
+                ElseIf ComboBox1.Text = "Putih" Then
+                    MessageBox.Show("Putih")
+                ElseIf ComboBox1.Text = "Kuning" Then
+                    MessageBox.Show("Kuning")
+                Else
+                    MessageBox.Show("Pilih tipe plat")
+                End If
                 process.StartInfo.UseShellExecute = False
                 process.StartInfo.RedirectStandardOutput = True
                 process.StartInfo.CreateNoWindow = True
@@ -103,4 +111,7 @@ Public Class Form1
         End If
     End Sub
 
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ComboBox1.Text = "-- Pilih tipe plat --"
+    End Sub
 End Class

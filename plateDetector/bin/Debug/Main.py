@@ -2,7 +2,6 @@ import os
 import cv2
 import imutils
 import socket
-import time
 import numpy as np
 
 import Calibration as cal
@@ -57,13 +56,18 @@ def main():
 
         img_original_scene = imutils.resize(img_original_scene, width=720)
         img_grayscale, img_thresh = pp.preprocess(img_original_scene)
+        
+        # Display the threshold image
+        cv2.imshow("Threshold Image", img_thresh)
+        cv2.waitKey(0)
+
         img_original_scene, new_license = search_license_plate(img_original_scene, False)
 
+        # Display the original image with detected license plate
+        cv2.imshow("Detected Plate", img_original_scene)
+        cv2.waitKey(0)
+
         conn.sendall(bytes(new_license, 'utf-8'))
-        # if new_license == 0:
-        #     print('Mengirim: No Character Detected')
-        # else: 
-        #     print('Mengirim:', new_license)
         
     except Exception as e:
         print(f"Error: {e}")
@@ -127,6 +131,9 @@ def search_license_plate(img, loop):
         draw_red_rectangle_around_plate(img, lic_plate)
         write_license_plate_chars_on_image(img, lic_plate)
         licenses = lic_plate.strChars
+
+        # Display the possible characters
+        print("Possible Characters:", licenses)
 
     return img, licenses
 
